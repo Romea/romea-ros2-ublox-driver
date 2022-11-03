@@ -1,4 +1,5 @@
 #include "romea_ublox/ublox_driver.hpp"
+#include <romea_common_utils/qos.hpp>
 
 namespace romea{
 
@@ -7,8 +8,11 @@ UbloxDriver::UbloxDriver(const rclcpp::NodeOptions & options):
   node_(std::make_shared<rclcpp::Node>("ublox_driver",options)),
   gps_interface_(node_),
   gps_data_(node_),
+  rtcm_sub_(nullptr),
   thread_(&UbloxDriver::thread_callback,this)
 {
+  auto callback = std::bind(&UbloxDriver::rtcm_callback_, this,std::placeholders::_1);
+  rtcm_sub_= node_->create_subscription<mavros_msgs::msg::RTCM>("ntrip/rtcm",best_effort(1),callback);
 }
 
 //-----------------------------------------------------------------------------

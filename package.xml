@@ -15,6 +15,7 @@
   <depend>romea_core_common</depend>
   <depend>romea_core_gps</depend>
   <depend>romea_common_utils</depend>
+  <depend>romea_gps_utils</depend>
   <depend>sensor_msgs</depend>
   <depend>mavros_msgs</depend>
   <depend>geometry_msgs</depend>
