@@ -5,14 +5,16 @@ namespace romea{
 
 //-----------------------------------------------------------------------------
 UbloxDriver::UbloxDriver(const rclcpp::NodeOptions & options):
-  node_(std::make_shared<rclcpp::Node>("ublox_driver",options)),
+  node_(std::make_shared<rclcpp::Node>("ublox_driver", options)),
   gps_interface_(node_),
   gps_data_(node_),
   rtcm_sub_(nullptr),
-  thread_(&UbloxDriver::thread_callback,this)
+  thread_(&UbloxDriver::thread_callback, this)
 {
-  auto callback = std::bind(&UbloxDriver::rtcm_callback_, this,std::placeholders::_1);
-  rtcm_sub_= node_->create_subscription<mavros_msgs::msg::RTCM>("ntrip/rtcm",best_effort(1),callback);
+  auto callback = std::bind(&UbloxDriver::rtcm_callback_, this, std::placeholders::_1);
+
+  rtcm_sub_ = node_->create_subscription<mavros_msgs::msg::RTCM>(
+    "ntrip/rtcm", best_effort(1), callback);
 }
 
 //-----------------------------------------------------------------------------
@@ -34,15 +36,15 @@ void UbloxDriver::thread_callback()
 {
   while (rclcpp::ok())
   {
-    auto nmea_sentence= gps_interface_.read_nmea_sentence();
-    if( nmea_sentence.has_value())
+    auto nmea_sentence = gps_interface_.read_nmea_sentence();
+    if (nmea_sentence.has_value())
     {
       gps_data_.process_nmea_sentence(nmea_sentence.value());
     }
   }
 }
 
-}
+}  // namespace romea
 
 #include <rclcpp_components/register_node_macro.hpp>
 RCLCPP_COMPONENTS_REGISTER_NODE(romea::UbloxDriver)
