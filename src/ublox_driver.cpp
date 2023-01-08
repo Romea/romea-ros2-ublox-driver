@@ -1,11 +1,25 @@
+// Copyright 2022 INRAE, French National Research Institute for Agriculture, Food and Environment
+// Add license
+
+// local
 #include "romea_ublox/ublox_driver.hpp"
+
+// ros
+#include <rclcpp_components/register_node_macro.hpp>
+
+// romea ros
 #include <romea_common_utils/qos.hpp>
 
-namespace romea{
+// std
+#include <memory>
+#include <string>
+
+namespace romea
+{
 
 //-----------------------------------------------------------------------------
-UbloxDriver::UbloxDriver(const rclcpp::NodeOptions & options):
-  node_(std::make_shared<rclcpp::Node>("ublox_driver", options)),
+UbloxDriver::UbloxDriver(const rclcpp::NodeOptions & options)
+: node_(std::make_shared<rclcpp::Node>("ublox_driver", options)),
   gps_interface_(node_),
   gps_data_(node_),
   rtcm_sub_(nullptr),
@@ -34,11 +48,9 @@ void UbloxDriver::rtcm_callback_(mavros_msgs::msg::RTCM::SharedPtr msg)
 //-----------------------------------------------------------------------------
 void UbloxDriver::thread_callback()
 {
-  while (rclcpp::ok())
-  {
+  while (rclcpp::ok()) {
     auto nmea_sentence = gps_interface_.read_nmea_sentence();
-    if (nmea_sentence.has_value())
-    {
+    if (nmea_sentence.has_value()) {
       gps_data_.process_nmea_sentence(nmea_sentence.value());
     }
   }
@@ -46,6 +58,4 @@ void UbloxDriver::thread_callback()
 
 }  // namespace romea
 
-#include <rclcpp_components/register_node_macro.hpp>
 RCLCPP_COMPONENTS_REGISTER_NODE(romea::UbloxDriver)
-

@@ -1,12 +1,22 @@
+// Copyright 2022 INRAE, French National Research Institute for Agriculture, Food and Environment
+// Add license
+
+#ifndef ROMEA_UBLOX__UBLOX_DRIVER_HPP_
+#define ROMEA_UBLOX__UBLOX_DRIVER_HPP_
+
+// ros
+#include <rclcpp/rclcpp.hpp>
+#include <mavros_msgs/msg/rtcm.hpp>
+
 // romea
 #include <romea_gps_utils/gps_serial_interface.hpp>
 #include <romea_gps_utils/gps_data.hpp>
+
 #include "romea_ublox/visibility_control.h"
 
-// ros
-#include <mavros_msgs/msg/rtcm.hpp>
 
-namespace romea {
+namespace romea
+{
 
 
 class UbloxDriver
@@ -28,12 +38,14 @@ private:
   void thread_callback();
 
 private:
-   rclcpp::Node::SharedPtr node_;
-   GpsSerialInterface gps_interface_;
-   GpsData gps_data_;
+  rclcpp::Node::SharedPtr node_;
+  GpsSerialInterface gps_interface_;
+  GpsData gps_data_;
 
-   rclcpp::Subscription<mavros_msgs::msg::RTCM>::SharedPtr rtcm_sub_;
-   std::thread thread_;
+  rclcpp::Subscription<mavros_msgs::msg::RTCM>::SharedPtr rtcm_sub_;
+  std::thread thread_;
 };
 
 }  // namespace romea
+
+#endif   // ROMEA_UBLOX__UBLOX_DRIVER_HPP_
