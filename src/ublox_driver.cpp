@@ -1,18 +1,16 @@
 // Copyright 2022 INRAE, French National Research Institute for Agriculture, Food and Environment
 // Add license
 
-// local
-#include "romea_ublox/ublox_driver.hpp"
-
-// ros
-#include <rclcpp_components/register_node_macro.hpp>
-
-// romea ros
-#include <romea_common_utils/qos.hpp>
-
 // std
 #include <memory>
 #include <string>
+
+// romea ros
+#include "romea_common_utils/qos.hpp"
+
+// local
+#include "romea_ublox/ublox_driver.hpp"
+
 
 namespace romea
 {
@@ -58,4 +56,5 @@ void UbloxDriver::thread_callback()
 
 }  // namespace romea
 
+#include "rclcpp_components/register_node_macro.hpp"
 RCLCPP_COMPONENTS_REGISTER_NODE(romea::UbloxDriver)
