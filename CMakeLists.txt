@@ -39,6 +39,7 @@ target_compile_definitions(${PROJECT_NAME}
 
 ament_target_dependencies(${PROJECT_NAME}
   rclcpp
+  rclcpp_components
   romea_core_common
   romea_core_gps
   romea_common_utils
