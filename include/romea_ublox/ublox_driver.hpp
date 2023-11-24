@@ -30,6 +30,8 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 
 class UbloxDriver
@@ -59,6 +61,7 @@ private:
   std::thread thread_;
 };
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif   // ROMEA_UBLOX__UBLOX_DRIVER_HPP_

@@ -26,6 +26,8 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 //-----------------------------------------------------------------------------
 UbloxDriver::UbloxDriver(const rclcpp::NodeOptions & options)
@@ -66,7 +68,8 @@ void UbloxDriver::thread_callback()
   }
 }
 
+}  // namespace ros2
 }  // namespace romea
 
 #include "rclcpp_components/register_node_macro.hpp"
-RCLCPP_COMPONENTS_REGISTER_NODE(romea::UbloxDriver)
+RCLCPP_COMPONENTS_REGISTER_NODE(romea::ros2::UbloxDriver)

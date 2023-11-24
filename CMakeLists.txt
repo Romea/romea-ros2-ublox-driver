@@ -51,7 +51,7 @@ ament_target_dependencies(${PROJECT_NAME}
 )
 
 rclcpp_components_register_node(${PROJECT_NAME}
-  PLUGIN "romea::UbloxDriver"
+  PLUGIN "romea::ros2::UbloxDriver"
   EXECUTABLE ublox_driver_node
 )
 
